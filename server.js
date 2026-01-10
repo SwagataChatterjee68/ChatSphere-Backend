@@ -8,7 +8,7 @@ const httpServer = createServer(app);
 const chatHistory = [];
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "https://chat-sphere-frontend-9egl.vercel.app/",
   },
 });
 
