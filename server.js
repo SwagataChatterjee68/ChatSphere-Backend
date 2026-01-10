@@ -9,6 +9,7 @@ const chatHistory = [];
 const io = new Server(httpServer, {
   cors: {
     origin: "https://chat-sphere-frontend-9egl.vercel.app",
+    credentials: true
   },
 });
 
