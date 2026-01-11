@@ -8,13 +8,18 @@ const httpServer = createServer(app);
 const chatHistory = [];
 const io = new Server(httpServer, {
   cors: {
-    origin: "https://chat-sphere-frontend-9egl.vercel.app",
-    credentials: true
+    origin: [
+      "https://chat-sphere-frontend-9egl.vercel.app",
+      "http://localhost:5173",
+    ],
+    credentials: true,
   },
 });
 
 io.on("connection", (socket) => {
   socket.on("ai-message", async (data) => {
+    socket.emit("ai-typing", true);
+
     chatHistory.push({
       role: "user",
       content: data.prompt,
@@ -28,6 +33,7 @@ io.on("connection", (socket) => {
     });
 
     socket.emit("ai-message-response", response);
+    socket.emit("ai-typing", false);
   });
 });
 
